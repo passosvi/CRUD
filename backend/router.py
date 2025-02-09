@@ -20,6 +20,8 @@ def read_one_product(product_id:int, db: Session = Depends(get_db)):
     db_product = get_product(db=db,product_id=product_id)
     if db_product is None:
         raise HTTPException(status_code= 404 , detail= "The product not exist")
+    return db_product
+
 ## create route to add item
 @router.post("/products/", response_model= ProductReponse)
 def create_product(product:ProductCreate, db: Session = Depends(get_db)):
@@ -27,14 +29,14 @@ def create_product(product:ProductCreate, db: Session = Depends(get_db)):
 ## create route to delete item
 @router.delete("/products/{product_id}", response_model= ProductReponse)
 def delete_product(product_id: int, db: Session = Depends(get_db)):
-    db_product = delete_product(product_id=product_id, db= db)
+    db_product = delete_product(db= db, product_id=product_id)
     if db_product is None:
         raise HTTPException(status_code= 404 , detail= "The product not exist to delete")
     return db_product
 ## create route to update item
 @router.put("/products/{product_id}", response_model= ProductReponse)
 def update_product(product_id: int, product: ProductUpdate, db: Session = Depends(get_db)):
-       db_product = update_product(db=db,product_id=product_id, product=product)
+       db_product = update_product(db,product_id=product_id, product=product)
        if db_product is None:
             raise HTTPException(status_code= 404 , detail= "The product not exist to delete")
        return db_product
