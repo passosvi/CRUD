@@ -1,15 +1,15 @@
 #FUNÇAO DE VIEW, CADA OPERAÇAO TEM UM PADRAO DISTINTO QUE PRECISA SER VALIDADO
-from pydantic import BaseModel,PositiveFloat,EmailStr,validators
+from pydantic import BaseModel,PositiveFloat,EmailStr,validator
 from enum import Enum
 from datetime import datetime
 from typing import Optional
 
 class ProductBase(BaseModel):
-    name = str
-    description = str
-    price = PositiveFloat
-    category = str
-    email_supplier = EmailStr
+    name : str
+    description : str
+    price : PositiveFloat
+    category : str
+    email_supplier : EmailStr
 
 class ProductCreate(ProductBase):
     pass
