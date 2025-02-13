@@ -20,12 +20,23 @@ services:
     environment: 
       DATABASE_URL: postgresql://user:password@postgres/mydatabase
     ports:
-      - "8000:8000"
+      - "8000:8000" 
     depends_on:
       - postgres
     networks:
       - mynetwork
 
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "8501:8501"
+    networks:
+      - mynetwork
+      
 networks:
   mynetwork:
 
